@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const ListCoworkings = () => {
   const coworkings = [
     {
@@ -37,16 +39,49 @@ const ListCoworkings = () => {
     },
   ];
 
+  // je créé un state pour stocker le filtre sélectionné
+  // par défaut le filtre est sur Bordeaux
+  const [filter, setFilter] = useState("Bordeaux");
+
+  // au click sur un bouton
+  // je modifie le state filter
+  // pour lui donner en valeur le nom de la ville cliquée
+  // avec la fonction setFilter
+  // cette fonction recharge le composant automatiquement
+  const handleFilterClickBordeaux = () => {
+    setFilter("Bordeaux");
+  };
+
+  const handleFilterClickMerignac = () => {
+    setFilter("Merignac");
+  };
+
+  const handleFilterClickLormont = () => {
+    setFilter("Lormont");
+  };
+
+  const handleFilterClickEysines = () => {
+    setFilter("Eysines");
+  };
+
+  // cette variable est re-créée à chaque fois
+  // que le state filter est modifié
+  // et elle contient les coworkings filtrés
+  // en fonction de la valeut du state filter (donc de la ville sélectionnée)
+  const filteredCoworkings = coworkings.filter((coworking) => {
+    return coworking.address === filter;
+  });
+
   return (
     <section>
       <h2>Liste des coworkings</h2>
 
-      <button>Bordeaux</button>
-      <button>Mérignac</button>
-      <button>Lormont</button>
-      <button>Eysines</button>
+      <button onClick={handleFilterClickBordeaux}>Bordeaux</button>
+      <button onClick={handleFilterClickMerignac}>Mérignac</button>
+      <button onClick={handleFilterClickLormont}>Lormont</button>
+      <button onClick={handleFilterClickEysines}>Eysines</button>
 
-      {coworkings.map((coworking) => {
+      {filteredCoworkings.map((coworking) => {
         return (
           <article key={coworking.id}>
             <h3>{coworking.name}</h3>
