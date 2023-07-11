@@ -46,6 +46,10 @@ const ListCoworkings = () => {
   };
 
   const coworkingsFiltered = coworkings.filter((coworking) => {
+    if (city === null) {
+      return true;
+    }
+
     return coworking.address === city;
   });
 
@@ -57,6 +61,8 @@ const ListCoworkings = () => {
       <button onClick={() => handleClick("Merignac")}>Mérignac</button>
       <button onClick={() => handleClick("Lormont")}>Lormont</button>
       <button onClick={() => handleClick("Eysines")}>Eysines</button>
+
+      <button onClick={() => handleClick(null)}>Tous</button>
 
       {coworkingsFiltered.map((coworking) => {
         return (
