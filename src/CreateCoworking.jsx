@@ -12,7 +12,18 @@ const CreateCoworking = () => {
     setDescription(event.target.description.value);
     setAddress(event.target.address.value);
 
-    // appel fetch pour envoyer les données du formulaire
+    // fetch("http://localhost:4000/coworkings", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+
+    //   body: JSON.stringify({
+    //     title: event.target.title.value,
+    //     description: event.target.description.value,
+    //     address: event.target.address.value,
+    //   }),
+    // });
   };
 
   return (
@@ -21,8 +32,8 @@ const CreateCoworking = () => {
         <label>Titre</label>
         <input type="text" name="title" />
 
-        <label>Description</label>
-        <textarea name="description" cols="30" rows="10"></textarea>
+    <label>Téléphone</label>
+    <input type="text" name="phone" />
 
         <label>Adresse</label>
         <input type="text" name="address" />
