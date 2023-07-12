@@ -39,10 +39,18 @@ const ListCoworkings = () => {
     },
   ];
 
+  // on a ajouté un bouton sous chaque coworking pour le supprimer
+  // au click sur le bouton, on récupère l'id du coworking cliqué
+  // on fait un appel fetch pour supprimer le coworking
+
   const [city, setCity] = useState("Bordeaux");
 
   const handleClick = (value) => {
     setCity(value);
+  };
+
+  const handleDelete = (id) => {
+    console.log("coworking supprimé", id);
   };
 
   const coworkingsFiltered = coworkings.filter((coworking) => {
@@ -71,6 +79,7 @@ const ListCoworkings = () => {
             <p>{coworking.address}</p>
             <p>{coworking.phone}</p>
             <img src={coworking.img} alt={coworking.name} />
+            <button onClick={() => handleDelete(coworking.id)}>Supprimer le coworking</button>
           </article>
         );
       })}

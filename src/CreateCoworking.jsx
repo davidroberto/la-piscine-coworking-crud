@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 const CreateCoworking = () => {
-  // on créer trois states pour stocker les valeurs des inputs
-  // avec pour valeur par défaut une chaine de caractères vide
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
@@ -10,12 +8,6 @@ const CreateCoworking = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // on utilise les fonctions qui permettent de modifier
-    // les valeurs des states title, description et address
-    // en leur passant en paramètre la valeur des inputs
-
-    // le composant est donc rechargée (re-rendu)
-    // et a accès aux nouvelles valeurs des states
     setTitle(event.target.title.value);
     setDescription(event.target.description.value);
     setAddress(event.target.address.value);
