@@ -1,56 +1,41 @@
 import { useState } from "react";
+import ShowCoworking from "./ShowCoworking";
 
 const ListCoworkings = () => {
-  const coworkings = [
-    {
-      id: 1,
-      name: "Coworking 1",
-      address: "Bordeaux",
-      phone: "123456789",
-      img: "https://picsum.photos/200/300",
-    },
-    {
-      id: 2,
-      name: "Coworking 2",
-      address: "Merignac",
-      phone: "123456789",
-      img: "https://picsum.photos/200/300",
-    },
-    {
-      id: 3,
-      name: "Coworking 3",
-      address: "Bordeaux",
-      phone: "123456789",
-      img: "https://picsum.photos/200/300",
-    },
-    {
-      id: 4,
-      name: "Coworking 4",
-      address: "Eysines",
-      phone: "123456789",
-      img: "https://picsum.photos/200/300",
-    },
-    {
-      id: 5,
-      name: "Coworking 5",
-      address: "Lormont",
-      phone: "123456789",
-      img: "https://picsum.photos/200/300",
-    },
-  ];
+  // je créé une variable de state pour stocker
+  // les coworkings à récupérer depuis l'api
+  // par défaut, je mets en valeurs pour la variable
+  // un tableau vide
 
-  // on a ajouté un bouton sous chaque coworking pour le supprimer
-  // au click sur le bouton, on récupère l'id du coworking cliqué
-  // on fait un appel fetch pour supprimer le coworking
+  // la variable coworkings permet de récupérer la valeur
+  // actuelle du state
+  // et la fonction setCoworkings permet de modifier la valeur
+  const [coworkings, setCoworkings] = useState([]);
+
+  // je créé une fonction qui va faire un appel fetch
+  // sur mon api
+  const fetchCoworkings = async () => {
+    // je fais un appel fetch sur mon api
+    if (coworkings.length === 0) {
+      const coworkingsResponse = await fetch("/coworkings.json");
+      const coworkingsData = await coworkingsResponse.json();
+
+      // si la variable coworkings est vide
+      // je stocke dans la variable coworkings
+      // les coworkings récupérés depuis l'api
+      // ça provoque un rechargement du composant
+
+      setCoworkings(coworkingsData);
+    }
+  };
+
+  // j'appelle ma fonction fetchCoworkings
+  fetchCoworkings();
 
   const [city, setCity] = useState("Bordeaux");
 
   const handleClick = (value) => {
     setCity(value);
-  };
-
-  const handleDelete = (id) => {
-    console.log("coworking supprimé", id);
   };
 
   const coworkingsFiltered = coworkings.filter((coworking) => {
@@ -73,15 +58,7 @@ const ListCoworkings = () => {
       <button onClick={() => handleClick(null)}>Tous</button>
 
       {coworkingsFiltered.map((coworking) => {
-        return (
-          <article key={coworking.id}>
-            <h3>{coworking.name}</h3>
-            <p>{coworking.address}</p>
-            <p>{coworking.phone}</p>
-            <img src={coworking.img} alt={coworking.name} />
-            <button onClick={() => handleDelete(coworking.id)}>Supprimer le coworking</button>
-          </article>
-        );
+        return <ShowCoworking coworking={coworking} />;
       })}
     </section>
   );

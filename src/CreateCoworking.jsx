@@ -11,6 +11,8 @@ const CreateCoworking = () => {
     setTitle(event.target.title.value);
     setDescription(event.target.description.value);
     setAddress(event.target.address.value);
+
+    // appel fetch pour envoyer les données du formulaire
   };
 
   return (
