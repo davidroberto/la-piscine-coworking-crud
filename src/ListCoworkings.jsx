@@ -2,34 +2,20 @@ import { useState } from "react";
 import ShowCoworking from "./ShowCoworking";
 
 const ListCoworkings = () => {
-  // je créé une variable de state pour stocker
-  // les coworkings à récupérer depuis l'api
-  // par défaut, je mets en valeurs pour la variable
-  // un tableau vide
-
-  // la variable coworkings permet de récupérer la valeur
-  // actuelle du state
-  // et la fonction setCoworkings permet de modifier la valeur
   const [coworkings, setCoworkings] = useState([]);
 
-  // je créé une fonction qui va faire un appel fetch
-  // sur mon api
   const fetchCoworkings = async () => {
-    // je fais un appel fetch sur mon api
     if (coworkings.length === 0) {
-      const coworkingsResponse = await fetch("/coworkings.json");
-      const coworkingsData = await coworkingsResponse.json();
+      // faux temps de réponse de l'api
+      setTimeout(async () => {
+        const coworkingsResponse = await fetch("/coworkings.json");
+        const coworkingsData = await coworkingsResponse.json();
 
-      // si la variable coworkings est vide
-      // je stocke dans la variable coworkings
-      // les coworkings récupérés depuis l'api
-      // ça provoque un rechargement du composant
-
-      setCoworkings(coworkingsData);
+        setCoworkings(coworkingsData);
+      }, 1500);
     }
   };
 
-  // j'appelle ma fonction fetchCoworkings
   fetchCoworkings();
 
   const [city, setCity] = useState("Bordeaux");
@@ -57,9 +43,15 @@ const ListCoworkings = () => {
 
       <button onClick={() => handleClick(null)}>Tous</button>
 
-      {coworkingsFiltered.map((coworking) => {
-        return <ShowCoworking coworking={coworking} />;
-      })}
+      {coworkingsFiltered.length === 0 ? (
+        <p>en cours de chargement...</p>
+      ) : (
+        <>
+          {coworkingsFiltered.map((coworking) => {
+            return <ShowCoworking coworking={coworking} />;
+          })}
+        </>
+      )}
     </section>
   );
 };
